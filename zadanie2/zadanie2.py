@@ -21,32 +21,30 @@ ALPHABET = ['0', '1', '2', '3', '4', 'a', 'b', 'c', 'd', 'e']
 ACCEPTING_STATE = [6, 12]
 history: List[int] = []
 
-def transaction(input: str, current_state: int) -> bool: #dziala na podstawie rekurencji
+def transaction(input: str, current_state: int): #dziala na podstawie rekurencji
     global history
     print("Aktualny stan: ", 'q' + str(current_state)) #dlatego wypisywane stringi są od tyłu
     if current_state in ACCEPTING_STATE:
-        return True
-    if input is "": 
-        return False
-
+        if current_state is ACCEPTING_STATE[0]:
+            print("Powtorzenie wystapilo posrod cyfr:", list(TABLE_OF_STATES[history[-2]])[0])
+        else:
+            print("Powtorzenie wystapilo posrod liter:", list(TABLE_OF_STATES[history[-2]])[0])
+        return
+    if input == "":
+        return
 
     single_sign = input[0]
     if single_sign in TABLE_OF_STATES[current_state].keys():
         possible_states = TABLE_OF_STATES[current_state][single_sign]
         if isinstance(possible_states, int):
-            possible_states = [possible_states]
-    else:
-        return False
+            possible_states = [possible_states]    
 
-    for state in possible_states:
-        history.append(state)
-        rest_of_string = input[1:]
-        if transaction(rest_of_string, state):
-            return True
+        for state in possible_states:
+            history.append(state)
+            rest_of_string = input[1:]
+            transaction(rest_of_string, state)
 
-    return False
-
-
+            
 def main():
     global history
     fileName: str = 'dane.txt'
@@ -57,15 +55,7 @@ def main():
             print("\nSprawdzam ciag", j)
             history = [0]
             current_state = 0
-            is_repeted: bool = transaction(j, current_state)
-            if is_repeted:
-                print("Dla ciągu", j, "występuje powtorzenie!")
-                if history[-1] is 6:
-                    print("Powtorzenie wystapilo posrod cyfr")
-                else:
-                    print("Powtorzenie wystapilo posrod liter")
-            else:
-                print("Dla ciągu", j, "nie występuje powtorzenie!")
+            transaction(j, current_state)
             print("Koncowy stan", history[-1])
             print("Lista stanow:", history)
 
