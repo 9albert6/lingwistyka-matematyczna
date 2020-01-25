@@ -1,4 +1,3 @@
-
 # S::=B;{B;}
 # B::=W{OW}
 # W::=A[.L]
@@ -18,8 +17,8 @@
 import re
 
 if __name__ == "__main__":
-    pattern = re.compile("^-?\d+(\.\d+)?([\*\/\+\-\^]-?\d+(\.\d+)?)*;(-?\d+(\.\d+)?([\*\/\+\-\^]-?\d+(\.\d+)?)*;)*$")
-    tested_string = "12+2*9;3*8.7^1.2-2/3"
+    pattern = re.compile("^-?\d+(\.\d+)?([\*\/\+\-\^]-?\d+(\.\.\d+)?)*;(-?\d+(\.\d+)?([\*\/\+\-\^]-?\d+(\.\.\d+)?)*;)*$")
+    tested_string = "12+2*9;3*8..7^1..2-2/3;"
 
     print("Sprawdzany ciag:", tested_string)
     if pattern.match(tested_string):
