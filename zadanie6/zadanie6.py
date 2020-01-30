@@ -119,7 +119,7 @@ def parse_string(test_str:str, actual_position: int) -> int:
 
 def main():
     # (1.2*3)+5-(23.4+3)^3; 8:13;
-    tested_string = "(1.2*3)+5-(23.4+3)^3; 8:1.3;"
+    tested_string = "(1.23*3)+5-(23.4+3)^3; 8:1.3;"
     try:
         returned = parse_string(tested_string.replace(' ','') + '#', 0)
         
@@ -127,12 +127,8 @@ def main():
         print(identifier)
         return
 
-    if returned != -1 and returned != None:
-        print (returned)
-        print("gut")
-    else:
-        print (returned)
-        print("bad")
+    print("Testowy string jest poprawny według gramatyki!")
+
 
 
 if __name__ == "__main__":
