@@ -15,7 +15,7 @@ def O(test_str:str) -> int:
     if test_str[actual_position] in '*:+-^':
         actual_position += 1
     else:
-        raise Exception("Not parsed! Expected sign is an operator!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def C(test_str:str) -> int:
@@ -23,7 +23,7 @@ def C(test_str:str) -> int:
     if test_str[actual_position] in '0123456789':
         actual_position += 1
     else:
-        raise Exception("Not parsed! Expected sign is a figure!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def L_prim(test_str:str) -> int:
@@ -38,7 +38,7 @@ def L(test_str:str) -> int:
         actual_position += C(test_str[actual_position:])
         actual_position += L_prim(test_str[actual_position:])
     else:
-        raise Exception("Not parsed! Expected sign is a figure!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def R_prim(test_str:str) -> int:
@@ -54,7 +54,7 @@ def R(test_str:str) -> int:
         actual_position += L(test_str[actual_position:])
         actual_position += R_prim(test_str[actual_position:])
     else:
-        raise Exception("Not parsed! Expected sign is a figure!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def P(test_str:str) -> int:
@@ -67,9 +67,9 @@ def P(test_str:str) -> int:
         if test_str[actual_position] is ')':
             actual_position += 1
         else:
-            raise Exception("Not parsed! Expected sign is )!")
+            raise Exception("Not parsed!")
     else:
-        raise Exception("Not parsed! Expected sign is a figure or (!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def W_prim(test_str:str) -> int:
@@ -85,7 +85,7 @@ def W(test_str:str) -> int:
         actual_position += P(test_str[actual_position:])
         actual_position += W_prim(test_str[actual_position:])
     else:
-        raise Exception("Not parsed! Expected sign is a figure or (!")
+        raise Exception("Not parsed!")
     return actual_position
 
 def Z(test_str:str) -> int:
@@ -96,7 +96,7 @@ def Z(test_str:str) -> int:
             actual_position += 1
             actual_position += Z(test_str[actual_position:])
         else:
-            raise Exception("Not parsed! Expected sign is ;")
+            raise Exception("Not parsed!")
     return actual_position
 
 def S(test_str:str) -> int:
@@ -107,9 +107,9 @@ def S(test_str:str) -> int:
             actual_position += 1
             actual_position += Z(test_str[actual_position:])
         else:
-            raise Exception("Not parsed! Expected sign is ;")
+            raise Exception("Not parsed!")
     else:
-        raise Exception("Not parsed! Expected sign is a figure or (!")
+        raise Exception("Not parsed!")
     return actual_position
         
 
@@ -119,7 +119,7 @@ def parse_string(test_str:str, actual_position: int) -> int:
 
 def main():
     # (1.2*3)+5-(23.4+3)^3; 8:13;
-    tested_string = "(1.23*3)+5-(23.4+3)^3; 8:1.3;"
+    tested_string = "(1.2.3*3)+5-(23.4+3)^3; 8:1.3;"
     try:
         returned = parse_string(tested_string.replace(' ','') + '#', 0)
         
